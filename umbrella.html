@@ -11,52 +11,91 @@
             display: block;
             margin: 0 auto;
         }
-        button{
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #a9e7fe;
-            color: white;
-            font-size: 20px;
-            border: none;
-            cursor: pointer;
-            outline: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-            position: fixed;
-            top: 22%;
-            right: 20px; /* 距离右边的距离 */
-            transform: translateY(-50%);
-        }
+        
         p{
             font-size: 25px;
             margin-left: 5%;
         }
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1; 
+            transition: opacity 0.5s; 
+        }
+        #popup {
+            background-color: #D6E0E1;
+            padding: 35px;
+            border-radius: 10px;
+            text-align: center;
+        }
+       #popup h2{
+        padding: 15px;
+        font-size: 20px;
+        color: #98A3A7;
+       }
+       #popup button{
+        font-size: 15px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #E5DFC8;
+        border: 3px solid #C7D6D1;
+        color: #849aa1;
+        font-weight: bold;
+       }
+       #overlay.hidden {
+            opacity: 0; 
+            pointer-events: none; 
+            transition: opacity 0.5s;
+        }
     </style>
     <script>
-        function toggleAudio() {
-            var audio = document.getElementById("myAudio");
-            if (audio.paused) {
-                audio.play();
-            } else {
-                audio.pause();
-            }
+        function start() {            
+            var comic = document.getElementById('comic');
+            var audio = document.getElementById('myAudio');            
+            comic.style.display = 'block'; 
+            audio.play(); 
+            hidePopup();
         }
+        function hidePopup() {
+            var overlay = document.getElementById('overlay');
+            overlay.classList.add('hidden'); 
+        }
+        
+        window.onload = function() {
+            var overlay = document.getElementById('overlay');
+            overlay.classList.remove('hidden');
+        };
     </script>
 </head>
 <body>
+    <div id="overlay" class="hidden" onclick="hidePopup()">
+        <div id="popup">
+            <h2>打開裝置音量，<br>以享有更好的觀看體驗</h2>
+            <img src="comics_umbrella/3643733_low_sound_speaker_voice_volume_icon.png" alt="">
+            <br>
+            <br>
+            <button onclick="start()">開始觀看</button>
+        </div>
+    </div>
     <audio id="myAudio">
         <source src="your-light-kiss-guitar-hip-hop-version-background-music-for-videos-196613.mp3" type="audio/mpeg">
     </audio>
-    <button onclick="toggleAudio()">▶</button>
+    
     <p>如果忘記帶雨傘...</p>
     <br>
+    <div id="comic">
     <img src="comics_umbrella/umbrella_1.jpg" alt="Comic Strip 1">
     <img src="comics_umbrella/umbrella_2.jpg" alt="Comic Strip 2">
     <img src="comics_umbrella/umbrella_3.jpg" alt="Comic Strip 3">
     <img src="comics_umbrella/umbrella_4.jpg" alt="Comic Strip 4">
     <img src="comics_umbrella/umbrella_5.jpg" alt="Comic Strip 5">
+</div>
 </body>
 </html>
