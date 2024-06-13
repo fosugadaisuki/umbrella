@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>記憶力不好也是好事!</title>
     <style>
+        /*漫畫圖片*/
         img {
             max-width: 100%;
             height: auto;
@@ -12,10 +13,13 @@
             margin: 0 auto;
         }
         
-        p{
+
+        p {
             font-size: 25px;
             margin-left: 5%;
         }
+
+        /*聲音提醒*/
         #overlay {
             position: fixed;
             top: 0;
@@ -54,48 +58,139 @@
             pointer-events: none; 
             transition: opacity 0.5s;
         }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+        }
+        .small-image {
+            width: 100%; 
+            height: auto; 
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .content {
+            padding: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        #top{
+            padding-top: 30%;
+        }
     </style>
     <script>
-        function start() {            
-            var comic = document.getElementById('comic');
-            var audio = document.getElementById('myAudio');            
-            comic.style.display = 'block'; 
-            audio.play(); 
+        function start() {
+            var audio = document.getElementById('homeAudio');
+            audio.play().catch(error => {
+                console.log('播放失敗：', error);
+                alert('音頻播放失敗，請檢查音量或瀏覽器設定。');
+            }); 
             hidePopup();
         }
+
         function hidePopup() {
             var overlay = document.getElementById('overlay');
             overlay.classList.add('hidden'); 
+        }
+
+        function stopAllAudio() {
+            var audios = document.querySelectorAll('audio');
+            audios.forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
         }
         
         window.onload = function() {
             var overlay = document.getElementById('overlay');
             overlay.classList.remove('hidden');
         };
+
+        function navigateTo(pageId, audioId) {
+            // Hide all content sections
+            document.querySelectorAll('.content').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Stop all audio
+            stopAllAudio();
+
+            // Show the target content section
+            document.getElementById(pageId).classList.remove('hidden');
+
+            // Play the target audio
+            if (audioId) {
+                var audio = document.getElementById(audioId);
+                audio.play().catch(error => {
+                    console.log('播放失敗：', error);
+                });
+            }
+        }
     </script>
 </head>
 <body>
-    <div id="overlay" class="hidden" onclick="hidePopup()">
+    <div id="overlay">
         <div id="popup">
             <h2>打開裝置音量，<br>以享有更好的觀看體驗</h2>
-            <img src="comics_umbrella/3643733_low_sound_speaker_voice_volume_icon.png" alt="">
-            <br>
-            <br>
+            <img src="comics_cellphone/3643733_low_sound_speaker_voice_volume_icon.png" alt="">
+            <br><br>
             <button onclick="start()">開始觀看</button>
         </div>
     </div>
-    <audio id="myAudio">
-        <source src="your-light-kiss-guitar-hip-hop-version-background-music-for-videos-196613.mp3" type="audio/mpeg">
+    <audio id="homeAudio">
+        <source src="sound/umbrella.mp3" type="audio/mpeg">
+
+    </audio>
+    <audio id="p1Audio">
+        <source src="sound/開門關門聲.mp3" type="audio/mpeg">
+
     </audio>
     
-    <p>如果忘記帶雨傘...</p>
-    <br>
-    <div id="comic">
-    <img src="comics_umbrella/umbrella_1.jpg" alt="Comic Strip 1">
-    <img src="comics_umbrella/umbrella_2.jpg" alt="Comic Strip 2">
-    <img src="comics_umbrella/umbrella_3.jpg" alt="Comic Strip 3">
-    <img src="comics_umbrella/umbrella_4.jpg" alt="Comic Strip 4">
-    <img src="comics_umbrella/umbrella_5.jpg" alt="Comic Strip 5">
+    <audio id="p3Audio">
+        <source src="sound/下雨聲.mp3" type="audio/mpeg">
+
+    </audio>
+    <audio id="p4Audio">
+        <source src="sound/浪漫.mp3" type="audio/mpeg">
+
+    </audio>
+
+
+
+    <div id="top"></div>
+    <div id="home" class="content">
+        <img src="comics_umbrella/ezgif.com-animated-gif-maker.gif" alt="Description of GIF" class="small-image" onclick="navigateTo('p1', 'p1Audio')">
+    </div>
+    <div id="p1" class="content hidden">
+        <img src="comics_umbrella/umbrella1.jpg" alt="Comic Strip 1" class="small-image" onclick="navigateTo('p2', 'p2Audio')">
+    </div>
+    <div id="p2" class="content hidden">
+        <img src="comics_umbrella/umbrella2.jpg" alt="Comic Strip 2" class="small-image" onclick="navigateTo('p3', 'p3Audio')">
+    </div>
+    <div id="p3" class="content hidden">
+        <img src="comics_umbrella/umbrella3.jpg" alt="Comic Strip 3" class="small-image" onclick="navigateTo('p4', 'p4Audio')">
+    </div>
+    <div id="p4" class="content hidden">
+        <img src="comics_umbrella/umbrella4.jpg" alt="Comic Strip 4" class="small-image" onclick="navigateTo('p5', 'p5Audio')">
+    </div>
+    <div id="p5" class="content hidden">
+        <img src="comics_umbrella/umbrella5.jpg" alt="Comic Strip 5" class="small-image" onclick="navigateTo('p6', 'p6Audio')">
+    </div>
 </div>
 </body>
 </html>
