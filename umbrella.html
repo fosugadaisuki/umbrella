@@ -122,64 +122,9 @@
                 audio.play();
             }
 
-            // Update currentPage
-            currentPage = pageId;
         }
 
-        function handlePageClick(event) {
-            var screenWidth = window.innerWidth;
-            var clickX = event.clientX;
-
-            if (clickX < screenWidth / 2) {
-                navigateToPrevious();
-            } else {
-                navigateToNext();
-            }
-        }
-
-        function navigateToNext() {
-            switch (currentPage) {
-                case 'home':
-                    navigateTo('p1', 'p1Audio');
-                    break;
-                case 'p1':
-                    navigateTo('p2', 'p2Audio');
-                    break;
-                case 'p2':
-                    navigateTo('p3', 'p3Audio');
-                    break;
-                case 'p3':
-                    navigateTo('p4', 'p4Audio');
-                    break;
-                case 'p4':
-                    navigateTo('p5', 'p5Audio');
-                    break;
-                case 'p5':
-                    break;
-            }
-        }
-
-        function navigateToPrevious() {
-            switch (currentPage) {
-                case 'p5':
-                    navigateTo('p4', 'p4Audio');
-                    break;
-                case 'p4':
-                    navigateTo('p3', 'p3Audio');
-                    break;
-                case 'p3':
-                    navigateTo('p2', 'p2Audio');
-                    break;
-                case 'p2':
-                    navigateTo('p1', 'p1Audio');
-                    break;
-                case 'p1':
-                    navigateTo('home', 'homeAudio');
-                    break;
-                case 'home':
-                    break;
-            }
-        }
+        
     </script>
 </head>
 <body onclick="handlePageClick(event)">
@@ -209,19 +154,19 @@
 
     <div id="top"></div>
     <div id="home" class="content">
-        <img src="comics_umbrella/ezgif.com-animated-gif-maker.gif" alt="Description of GIF" class="small-image">
+        <img src="comics_umbrella/ezgif.com-animated-gif-maker.gif" alt="Description of GIF" class="small-image" onclick="navigateTo('p1', 'p1Audio')">
     </div>
     <div id="p1" class="content hidden">
-        <img src="comics_umbrella/umbrella1.jpg" alt="Comic Strip 1" class="small-image">
+        <img src="comics_umbrella/umbrella1.jpg" alt="Comic Strip 1" class="small-image" onclick="navigateTo('p2', 'p2Audio')">
     </div>
     <div id="p2" class="content hidden">
-        <img src="comics_umbrella/umbrella2.jpg" alt="Comic Strip 2" class="small-image">
+        <img src="comics_umbrella/umbrella2.jpg" alt="Comic Strip 2" class="small-image" onclick="navigateTo('p3', 'p3Audio')">
     </div>
     <div id="p3" class="content hidden">
-        <img src="comics_umbrella/umbrella3.jpg" alt="Comic Strip 3" class="small-image">
+        <img src="comics_umbrella/umbrella3.jpg" alt="Comic Strip 3" class="small-image" onclick="navigateTo('p4', 'p4Audio')">
     </div>
     <div id="p4" class="content hidden">
-        <img src="comics_umbrella/umbrella4.jpg" alt="Comic Strip 4" class="small-image">
+        <img src="comics_umbrella/umbrella4.jpg" alt="Comic Strip 4" class="small-image" onclick="navigateTo('p5', 'p5Audio')">
     </div>
     <div id="p5" class="content hidden">
         <img src="comics_umbrella/umbrella5.jpg" alt="Comic Strip 5" class="small-image">
