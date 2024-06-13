@@ -12,7 +12,6 @@
             display: block;
             margin: 0 auto;
         }
-        
 
         p {
             font-size: 25px;
@@ -39,21 +38,21 @@
             border-radius: 10px;
             text-align: center;
         }
-       #popup h2{
-        padding: 15px;
-        font-size: 20px;
-        color: #5D7289;
-       }
-       #popup button{
-        font-size: 15px;
-        padding: 10px;
-        border-radius: 10px;
-        background-color: #E8DFE2;
-        border: 3px solid #ac9ea5;
-        color: #766e9b;
-        font-weight: bold;
-       }
-       #overlay.hidden {
+        #popup h2 {
+            padding: 15px;
+            font-size: 20px;
+            color: #5D7289;
+        }
+        #popup button {
+            font-size: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #E8DFE2;
+            border: 3px solid #ac9ea5;
+            color: #766e9b;
+            font-weight: bold;
+        }
+        #overlay.hidden {
             opacity: 0; 
             pointer-events: none; 
             transition: opacity 0.5s;
@@ -68,38 +67,22 @@
             width: 100%; 
             height: auto; 
         }
-
-        nav {
-            background-color: #333;
-            padding: 10px 0;
-        }
-        nav a {
-            color: white;
-            padding: 14px 20px;
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-        }
-        nav a:hover {
-            background-color: #575757;
-        }
         .content {
             padding: 20px;
         }
         .hidden {
             display: none;
         }
-        #top{
+        #top {
             padding-top: 30%;
         }
     </style>
     <script>
+        var currentPage = 'home'; // Initialize current page
+
         function start() {
             var audio = document.getElementById('homeAudio');
-            audio.play().catch(error => {
-                console.log('播放失敗：', error);
-                alert('音頻播放失敗，請檢查音量或瀏覽器設定。');
-            }); 
+            audio.play();
             hidePopup();
         }
 
@@ -115,7 +98,7 @@
                 audio.currentTime = 0;
             });
         }
-        
+
         window.onload = function() {
             var overlay = document.getElementById('overlay');
             overlay.classList.remove('hidden');
@@ -136,14 +119,70 @@
             // Play the target audio
             if (audioId) {
                 var audio = document.getElementById(audioId);
-                audio.play().catch(error => {
-                    console.log('播放失敗：', error);
-                });
+                audio.play();
+            }
+
+            // Update currentPage
+            currentPage = pageId;
+        }
+
+        function handlePageClick(event) {
+            var screenWidth = window.innerWidth;
+            var clickX = event.clientX;
+
+            if (clickX < screenWidth / 2) {
+                navigateToPrevious();
+            } else {
+                navigateToNext();
+            }
+        }
+
+        function navigateToNext() {
+            switch (currentPage) {
+                case 'home':
+                    navigateTo('p1', 'p1Audio');
+                    break;
+                case 'p1':
+                    navigateTo('p2', 'p2Audio');
+                    break;
+                case 'p2':
+                    navigateTo('p3', 'p3Audio');
+                    break;
+                case 'p3':
+                    navigateTo('p4', 'p4Audio');
+                    break;
+                case 'p4':
+                    navigateTo('p5', 'p5Audio');
+                    break;
+                case 'p5':
+                    break;
+            }
+        }
+
+        function navigateToPrevious() {
+            switch (currentPage) {
+                case 'p5':
+                    navigateTo('p4', 'p4Audio');
+                    break;
+                case 'p4':
+                    navigateTo('p3', 'p3Audio');
+                    break;
+                case 'p3':
+                    navigateTo('p2', 'p2Audio');
+                    break;
+                case 'p2':
+                    navigateTo('p1', 'p1Audio');
+                    break;
+                case 'p1':
+                    navigateTo('home', 'homeAudio');
+                    break;
+                case 'home':
+                    break;
             }
         }
     </script>
 </head>
-<body>
+<body onclick="handlePageClick(event)">
     <div id="overlay">
         <div id="popup">
             <h2>打開裝置音量，<br>以享有更好的觀看體驗</h2>
@@ -154,43 +193,38 @@
     </div>
     <audio id="homeAudio">
         <source src="sound/umbrella.mp3" type="audio/mpeg">
-
     </audio>
     <audio id="p1Audio">
         <source src="sound/開門關門聲.mp3" type="audio/mpeg">
-
     </audio>
-    
+    <audio id="p2Audio">
+        <source src="sound/第二頁音樂.mp3" type="audio/mpeg">
+    </audio>
     <audio id="p3Audio">
         <source src="sound/下雨聲.mp3" type="audio/mpeg">
-
     </audio>
     <audio id="p4Audio">
         <source src="sound/浪漫.mp3" type="audio/mpeg">
-
     </audio>
-
-
 
     <div id="top"></div>
     <div id="home" class="content">
-        <img src="comics_umbrella/ezgif.com-animated-gif-maker.gif" alt="Description of GIF" class="small-image" onclick="navigateTo('p1', 'p1Audio')">
+        <img src="comics_umbrella/ezgif.com-animated-gif-maker.gif" alt="Description of GIF" class="small-image">
     </div>
     <div id="p1" class="content hidden">
-        <img src="comics_umbrella/umbrella1.jpg" alt="Comic Strip 1" class="small-image" onclick="navigateTo('p2', 'p2Audio')">
+        <img src="comics_umbrella/umbrella1.jpg" alt="Comic Strip 1" class="small-image">
     </div>
     <div id="p2" class="content hidden">
-        <img src="comics_umbrella/umbrella2.jpg" alt="Comic Strip 2" class="small-image" onclick="navigateTo('p3', 'p3Audio')">
+        <img src="comics_umbrella/umbrella2.jpg" alt="Comic Strip 2" class="small-image">
     </div>
     <div id="p3" class="content hidden">
-        <img src="comics_umbrella/umbrella3.jpg" alt="Comic Strip 3" class="small-image" onclick="navigateTo('p4', 'p4Audio')">
+        <img src="comics_umbrella/umbrella3.jpg" alt="Comic Strip 3" class="small-image">
     </div>
     <div id="p4" class="content hidden">
-        <img src="comics_umbrella/umbrella4.jpg" alt="Comic Strip 4" class="small-image" onclick="navigateTo('p5', 'p5Audio')">
+        <img src="comics_umbrella/umbrella4.jpg" alt="Comic Strip 4" class="small-image">
     </div>
     <div id="p5" class="content hidden">
-        <img src="comics_umbrella/umbrella5.jpg" alt="Comic Strip 5" class="small-image" >
+        <img src="comics_umbrella/umbrella5.jpg" alt="Comic Strip 5" class="small-image">
     </div>
-</div>
 </body>
 </html>
