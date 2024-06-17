@@ -121,9 +121,38 @@
                 var audio = document.getElementById(audioId);
                 audio.play();
             }
+            currentPage = pageId;
+        }
+        function handlePageClick(event) {
+            var windowWidth = window.innerWidth;
+            var clickX = event.clientX;
 
+            if (clickX < windowWidth / 2) {
+                // 点击左边，返回上一页
+                navigateToPreviousPage();
+            } else {
+                // 点击右边，跳转到下一页
+                navigateToNextPage();
+            }
         }
 
+        function navigateToPreviousPage() {
+            var pages = ['home', 'p1', 'p2', 'p3', 'p4', 'p5'];
+            var currentIndex = pages.indexOf(currentPage);
+            if (currentIndex > 0) {
+                var previousPage = pages[currentIndex - 1];
+                navigateTo(previousPage, previousPage + 'Audio');
+            }
+        }
+
+        function navigateToNextPage() {
+            var pages = ['home', 'p1', 'p2', 'p3', 'p4', 'p5'];
+            var currentIndex = pages.indexOf(currentPage);
+            if (currentIndex < pages.length - 1) {
+                var nextPage = pages[currentIndex + 1];
+                navigateTo(nextPage, nextPage + 'Audio');
+            }
+        }
         
     </script>
 </head>
@@ -151,22 +180,25 @@
     <audio id="p4Audio">
         <source src="sound/浪漫.mp3" type="audio/mpeg">
     </audio>
+    <audio id="p5Audio">
+        <source src="" type="audio/mpeg">
+    </audio>
 
     <div id="top"></div>
     <div id="home" class="content">
-        <img src="comics_umbrella/ezgif.com-animated-gif-maker.gif" alt="Description of GIF" class="small-image" onclick="navigateTo('p1', 'p1Audio')">
+        <img src="comics_umbrella/ezgif.com-animated-gif-maker.gif" alt="Description of GIF" class="small-image">
     </div>
     <div id="p1" class="content hidden">
-        <img src="comics_umbrella/umbrella1.jpg" alt="Comic Strip 1" class="small-image" onclick="navigateTo('p2', 'p2Audio')">
+        <img src="comics_umbrella/umbrella1.jpg" alt="Comic Strip 1" class="small-image">
     </div>
     <div id="p2" class="content hidden">
-        <img src="comics_umbrella/umbrella2.jpg" alt="Comic Strip 2" class="small-image" onclick="navigateTo('p3', 'p3Audio')">
+        <img src="comics_umbrella/umbrella2.jpg" alt="Comic Strip 2" class="small-image">
     </div>
     <div id="p3" class="content hidden">
-        <img src="comics_umbrella/umbrella3.jpg" alt="Comic Strip 3" class="small-image" onclick="navigateTo('p4', 'p4Audio')">
+        <img src="comics_umbrella/umbrella3.jpg" alt="Comic Strip 3" class="small-image">
     </div>
     <div id="p4" class="content hidden">
-        <img src="comics_umbrella/umbrella4.jpg" alt="Comic Strip 4" class="small-image" onclick="navigateTo('p5', 'p5Audio')">
+        <img src="comics_umbrella/umbrella4.jpg" alt="Comic Strip 4" class="small-image">
     </div>
     <div id="p5" class="content hidden">
         <img src="comics_umbrella/umbrella5.jpg" alt="Comic Strip 5" class="small-image">
