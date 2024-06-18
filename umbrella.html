@@ -141,7 +141,7 @@
         }
 
         function navigateToPreviousPage() {
-            var pages = ['home', 'p1', 'p2', 'p3', 'p4', 'p5'];
+            var pages = ['home', 'p1', 'p2', 'p3', 'p4', 'p5','p6'];
             var currentIndex = pages.indexOf(currentPage);
             if (currentIndex > 0) {
                 var previousPage = pages[currentIndex - 1];
@@ -150,7 +150,7 @@
         }
 
         function navigateToNextPage() {
-            var pages = ['home', 'p1', 'p2', 'p3', 'p4', 'p5'];
+            var pages = ['home', 'p1', 'p2', 'p3', 'p4', 'p5','p6'];
             var currentIndex = pages.indexOf(currentPage);
             if (currentIndex < pages.length - 1) {
                 var nextPage = pages[currentIndex + 1];
@@ -187,7 +187,9 @@
     <audio id="p5Audio">
         <source src="" type="audio/mpeg">
     </audio>
-
+    <audio id="p6Audio">
+        <source src="" type="audio/mpeg">
+    </audio>
     <div id="top"></div>
     <div id="home" class="content">
         <img src="comics_umbrella/ezgif.com-animated-gif-maker.gif" alt="Description of GIF" class="small-image">
@@ -206,6 +208,9 @@
     </div>
     <div id="p5" class="content hidden">
         <img src="comics_umbrella/umbrella5.jpg" alt="Comic Strip 5" class="small-image">
+    </div>
+    <div id="p6" class="content hidden">
+        <img src="comics_umbrella/S__52617265.jpg" alt="Comic Strip 6" class="small-image">
     </div>
 </body>
 </html>
