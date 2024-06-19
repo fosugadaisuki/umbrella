@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,10 +77,45 @@
         #top {
             padding-top: 30%;
         }
+        /* 新增提示頁面樣式 */
+        #hintPage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        #hintContent {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+        }
+        #hintContent div {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        #hintLeft {
+            border-right: 2px solid #ffffff;
+        }
+        #hintRight {
+            border-left: 2px solid #ffffff;
+        }
     </style>
     <script>
         var currentPage = 'home'; // Initialize current page
         var navigationEnabled = false;
+        
         function start() {
             var audio = document.getElementById('homeAudio');
             audio.play();
@@ -125,11 +161,35 @@
                 audio.play();
             }
             currentPage = pageId;
+
+            // Show hint page if navigating to p1
+            if (pageId === 'p1') {
+                showHintPage();
+            }
         }
+
+        function showHintPage() {
+            var hintPage = document.getElementById('hintPage');
+            hintPage.style.display = 'flex';
+        }
+
+        function hideHintPage() {
+            var hintPage = document.getElementById('hintPage');
+            hintPage.style.display = 'none';
+        }
+
         function handlePageClick(event) {
             if (!navigationEnabled) return;
+            
             var windowWidth = window.innerWidth;
             var clickX = event.clientX;
+
+            // If hint page is visible, hide it first
+            var hintPage = document.getElementById('hintPage');
+            if (hintPage.style.display === 'flex') {
+                hideHintPage();
+                return;
+            }
 
             if (clickX < windowWidth / 2) {
                 // 点击左边，返回上一页
@@ -157,7 +217,6 @@
                 navigateTo(nextPage, nextPage + 'Audio');
             }
         }
-        
     </script>
 </head>
 <body onclick="handlePageClick(event)">
@@ -211,6 +270,14 @@
     </div>
     <div id="p6" class="content hidden">
         <img src="comics_umbrella/S__52617265.jpg" alt="Comic Strip 6" class="small-image">
+    </div>
+
+    <!-- 提示頁面 -->
+    <div id="hintPage">
+        <div id="hintContent">
+            <div id="hintLeft">上一頁</div>
+            <div id="hintRight">下一頁</div>
+        </div>
     </div>
 </body>
 </html>
